@@ -11,6 +11,6 @@ final class CLITest extends TestCase
         $this->assertRegExp('#vendor/phpunit/phpunit/phpunit$#', CLI::getCalledFile());
     }
     public function testCanGetCompleteCommand() {
-        $this->assertRegExp('#/php --php-ini .*\.ini.*-f#', CLI::getCalledCommand());
+        $this->assertRegExp('#/php .*-f#', CLI::getCalledCommand());
     }
 }
