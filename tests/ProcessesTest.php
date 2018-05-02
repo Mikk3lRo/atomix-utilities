@@ -8,6 +8,8 @@ use Mikk3lRo\atomix\utilities\Processes;
 final class ProcessesTest extends TestCase
 {
     public function testExecuteNonBlockingRunsAndDoesNotBlock() {
+        echo `usleep 10000000 2>&1`;
+
         $starttime = microtime(true);
         $pid = Processes::executeNonBlocking('date;echo abc;usleep 100000;echo def;date;');
         $this->assertGreaterThan(0, $pid);
