@@ -19,7 +19,7 @@ final class ProcessesTest extends TestCase
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.1;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
-        usleep(200000);
+        sleep(2);
         $this->assertEquals(false, Processes::isRunning($pid));
     }
     public function testExecuteNonBlockingSimpleCommand() {
@@ -36,7 +36,7 @@ final class ProcessesTest extends TestCase
         usleep(50000);
         $this->assertRegExp('#^abc$#', file_get_contents('/tmp/stdout'));
         $this->assertRegExp('#^ghi$#', file_get_contents('/tmp/stderr'));
-        usleep(100000);
+        usleep(500000);
         $this->assertRegExp('#^abcdef#', file_get_contents('/tmp/stdout'));
         $this->assertRegExp('#^ghijkl$#', file_get_contents('/tmp/stderr'));
     }
