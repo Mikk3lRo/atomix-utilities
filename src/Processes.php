@@ -40,6 +40,12 @@ class Processes
      */
     public static function isRunning(int $pid) : bool
     {
-        return (posix_getpgid(intval($pid)) !== false);
+        if (function_exists('posix_getpgid')) {
+            //use posix if available
+            return (posix_getpgid(intval($pid)) !== false);
+        } else { // @codeCoverageIgnoreStart
+            //ps will return an error if the pid does not exist.
+            return `ps -p $pid > /dev/null 2>&1; echo $?` === '0';
+        } // @codeCoverageIgnoreEnd
     }
 }
