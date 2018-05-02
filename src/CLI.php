@@ -19,6 +19,31 @@ class CLI
      */
     public static function getCalledCommand(?array $args = null) : string
     {
+        $cmd = self::getPhpCommand(self::getCalledFile());
+        if ($args === null) {
+            global $argv;
+            $args = array_slice($argv, 1);
+        }
+        foreach ($args as $arg) {
+            $cmd .= ' ' . escapeshellarg($arg);
+        }
+        return $cmd;
+    }
+
+
+    /**
+     * Gets a command that runs a php script under the same php version and with
+     * the same php.ini as the current script.
+     *
+     * @param string     $script The php script filename.
+     * @param array|null $args   An array of arguments to the script - defaults to none.
+     *
+     * @global array $argv Uses the global arguments.
+     *
+     * @return string The command
+     */
+    public static function getPhpCommand(string $script, ?array $args = null) : string
+    {
         $inipath = php_ini_loaded_file();
 
         $cmd = array();
@@ -26,13 +51,11 @@ class CLI
         if ($inipath) {
             $cmd[] = '--php-ini ' . escapeshellarg($inipath);
         }
-        $cmd[] = '-f ' . escapeshellarg(self::getCalledFile());
-        if ($args === null) {
-            global $argv;
-            $args = array_slice($argv, 1);
-        }
-        foreach ($args as $arg) {
-            $cmd[] = escapeshellarg($arg);
+        $cmd[] = '-f ' . escapeshellarg($script);
+        if (is_array($args)) {
+            foreach ($args as $arg) {
+                $cmd[] = escapeshellarg($arg);
+            }
         }
         return implode(' ', $cmd);
     }
