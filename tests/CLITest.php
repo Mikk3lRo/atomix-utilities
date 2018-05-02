@@ -13,4 +13,9 @@ final class CLITest extends TestCase
     public function testCanGetCompleteCommand() {
         $this->assertRegExp('#/php .*-f#', CLI::getCalledCommand());
     }
+    public function testCanUseOtherParms() {
+        $sameparms = CLI::getCalledCommand();
+        $newparms = CLI::getCalledCommand(array('these', 'are', 'new'));
+        $this->assertRegExp('#^' . $sameparms . ".*'these' 'are' 'new'$#", $newparms);
+    }
 }

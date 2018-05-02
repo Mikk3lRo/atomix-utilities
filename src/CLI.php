@@ -11,13 +11,14 @@ class CLI
      * *should* result in the same script being executed using the same
      * environment.
      *
-     * @global array $argv The arguments to the currently running script.
+     * @param array|null $args An array of arguments to the script - defaults to the same as the current.
+     *
+     * @global array $argv Uses the global arguments.
      *
      * @return string The command
      */
-    public static function getCalledCommand() : string
+    public static function getCalledCommand(?array $args = null) : string
     {
-        global $argv;
         $inipath = php_ini_loaded_file();
 
         $cmd = array();
@@ -26,7 +27,10 @@ class CLI
             $cmd[] = '--php-ini ' . escapeshellarg($inipath);
         }
         $cmd[] = '-f ' . escapeshellarg(self::getCalledFile());
-        $args = array_slice($argv, 1);
+        if ($args === null) {
+            global $argv;
+            $args = array_slice($argv, 1);
+        }
         foreach ($args as $arg) {
             $cmd[] = escapeshellarg($arg);
         }
