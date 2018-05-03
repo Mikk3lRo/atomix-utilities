@@ -9,13 +9,13 @@ final class ProcessesTest extends TestCase
 {
     public function testExecuteNonBlockingRunsAndDoesNotBlock() {
         $starttime = microtime(true);
-        $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.1;echo def;date;');
+        $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.2;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $executiontime = microtime(true) - $starttime;
-        $this->assertLessThan(.05, $executiontime);
+        $this->assertLessThan(.1, $executiontime);
     }
     public function testCanDetermineIfProcessIsRunning() {
-        $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.1;echo def;date;');
+        $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.2;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
         usleep(1200000);
@@ -23,11 +23,13 @@ final class ProcessesTest extends TestCase
     }
     public function testExecuteNonBlockingSimpleCommand() {
         $starttime = microtime(true);
-        $pid = Processes::executeNonBlocking('sleep 0.1');
+        $pid = Processes::executeNonBlocking('sleep 0.2');
+        $executiontime = microtime(true) - $starttime;
+        $this->assertLessThan(.1, $executiontime);
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
-        $executiontime = microtime(true) - $starttime;
-        $this->assertLessThan(.05, $executiontime);
+        usleep(1200000);
+        $this->assertEquals(false, Processes::isRunning($pid));
     }
 
     public function testExecuteNonBlockingDoesOutput() {
