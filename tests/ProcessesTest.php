@@ -15,16 +15,15 @@ final class ProcessesTest extends TestCase
         $this->assertLessThan(.05, $executiontime);
     }
     public function testCanDetermineIfProcessIsRunning() {
-        $starttime = microtime(true);
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.1;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
-        sleep(5);
+        usleep(200000);
         $this->assertEquals(false, Processes::isRunning($pid));
     }
     public function testExecuteNonBlockingSimpleCommand() {
         $starttime = microtime(true);
-        $pid = Processes::executeNonBlocking('usleep 0.1');
+        $pid = Processes::executeNonBlocking('sleep 0.1');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
         $executiontime = microtime(true) - $starttime;
@@ -36,7 +35,7 @@ final class ProcessesTest extends TestCase
         usleep(50000);
         $this->assertRegExp('#^abc$#', file_get_contents('/tmp/stdout'));
         $this->assertRegExp('#^ghi$#', file_get_contents('/tmp/stderr'));
-        usleep(500000);
+        usleep(200000);
         $this->assertRegExp('#^abcdef#', file_get_contents('/tmp/stdout'));
         $this->assertRegExp('#^ghijkl$#', file_get_contents('/tmp/stderr'));
     }
