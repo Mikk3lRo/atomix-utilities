@@ -43,10 +43,12 @@ class Processes
         if (function_exists('posix_getpgid')) {
             //use posix if available
             echo "\n\nPID:$pid..." . 'POSIX!!!!' . "\n\n";
-            return (posix_getpgid(intval($pid)) !== false);
+            echo "\n-----------\n" . `ps -p $pid > /dev/null 2>&1; echo $?` . "\n-----------\n";
+            echo "\n-----------\n" . `ps -p $pid` . "\n-----------\n";
+            return (posix_getpgid($pid) !== false);
         } else { // @codeCoverageIgnoreStart
             //ps will return an error if the pid does not exist.
-            echo "\n\nPID:$pid..." . 'POSIX!!!!' . "\n\n";
+            echo "\n\nPID:$pid..." . 'PS!!!!' . "\n\n";
             echo "\n-----------\n" . `ps -p $pid > /dev/null 2>&1; echo $?` . "\n-----------\n";
             echo "\n-----------\n" . `ps -p $pid` . "\n-----------\n";
             return `ps -p $pid > /dev/null 2>&1; echo $?` === '0';

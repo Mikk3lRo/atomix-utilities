@@ -19,7 +19,7 @@ final class ProcessesTest extends TestCase
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.1;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
-        sleep(2);
+        sleep(5);
         $this->assertEquals(false, Processes::isRunning($pid));
     }
     public function testExecuteNonBlockingSimpleCommand() {
