@@ -40,6 +40,7 @@ class Processes
      */
     public static function isRunning(int $pid) : bool
     {
+        return file_exists('/proc/' . $pid);
         if (function_exists('posix_getpgid')) {
             //use posix if available
             echo "\n\nPID:$pid..." . 'POSIX!!!!' . "\n\n";
