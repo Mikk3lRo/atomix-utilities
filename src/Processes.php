@@ -41,6 +41,7 @@ class Processes
     public static function isRunning(int $pid) : bool
     {
         //ps will return an error if the pid does not exist.
+        echo "---" . `ps -p $pid` . "---";
         return trim(`ps -p $pid > /dev/null 2>&1; echo $?`) == '0';
 
         if (function_exists('posix_getpgid')) {
