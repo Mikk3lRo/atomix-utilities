@@ -19,7 +19,7 @@ final class ProcessesTest extends TestCase
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.2;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
-        if (Detector::isInsideDocker()) {
+        if (false && Detector::isInsideDocker()) {
             //TODO: Get the pid1 zombie reaper working in the bitbucket pipeline, so we can run this test!
             echo "\n\n\n" .
                  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" . "\n" .
