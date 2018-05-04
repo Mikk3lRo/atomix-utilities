@@ -30,13 +30,13 @@ final class ProcessesTest extends TestCase
         } else {
 
             usleep(3000000);
-            $this->assertEquals(false, Processes::isRunning($pid));
 
             echo "\nMy PID: " . getmypid();
             echo "\nChild PID: " . $pid;
             echo "\nChild pgid: " .posix_getpgid($pid);
             echo `ps aux` . "\n\n";
 
+            $this->assertEquals(false, Processes::isRunning($pid));
         }
     }
     public function testExecuteNonBlockingSimpleCommand() {
