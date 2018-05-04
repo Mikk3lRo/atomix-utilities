@@ -22,10 +22,10 @@ final class ProcessesTest extends TestCase
         if (Detector::isInsideDocker()) {
             //TODO: Get the pid1 zombie reaper working in the bitbucket pipeline, so we can run this test!
             echo "\n\n\n" .
-                 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" .
+                 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" . "\n" .
                  "!!!!!!!!!!!!!!!!! RUNNING INSIDE DOCKER !!!!!!!!!!!!!!!!!!" . "\n" .
-                 "!!!!!! CANNOT RELYABLY DETECT IF PROCESS IS RUNNING !!!!!!" .
-                 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" .
+                 "!!!!!! CANNOT RELYABLY DETECT IF PROCESS IS RUNNING !!!!!!" . "\n" .
+                 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" . "\n" .
                  "\n\n\n";
         } else {
             usleep(300000);
