@@ -46,6 +46,15 @@ final class ProcessesTest extends TestCase
         $this->assertLessThan(.1, $executiontime);
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
+
+        usleep(3000000);
+
+        echo "\nMy PID: " . getmypid();
+        echo "\nChild PID: " . $pid;
+        echo "\nChild pgid: " .posix_getpgid($pid);
+        echo `ps aux` . "\n\n";
+
+        $this->assertEquals(false, Processes::isRunning($pid));
     }
 
     public function testExecuteNonBlockingDoesOutput() {
