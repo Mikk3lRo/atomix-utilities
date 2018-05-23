@@ -11,12 +11,12 @@ class Reflections
      *
      * Useful fx. when we require an array with a description of each argument.
      *
-     * @param callable $callable  The function.
-     * @param array    $arguments The arguments.
+     * @param array|callable $callable  The function.
+     * @param array          $arguments The arguments.
      *
      * @return void
      */
-    public static function checkArgumentsExistExact(callable $callable, array $arguments) : void
+    public static function checkArgumentsExistExact(/*no type hint to support protected and private*/ $callable, array $arguments) : void
     {
         self::checkArguments($callable, $arguments, false, false);
     }
@@ -27,12 +27,12 @@ class Reflections
      *
      * In the process non-optional arguments are checked for existence.
      *
-     * @param callable $callable  The function.
-     * @param array    $arguments The arguments.
+     * @param array|callable $callable  The function.
+     * @param array          $arguments The arguments.
      *
      * @return array Returns a "flat" array for use with call_user_func.
      */
-    public static function getArgumentArrayForCallUserFunc(callable $callable, array $arguments) : array
+    public static function getArgumentArrayForCallUserFunc(/*no type hint to support protected and private*/ $callable, array $arguments) : array
     {
         return self::checkArguments($callable, $arguments, true, true);
     }
@@ -41,16 +41,16 @@ class Reflections
     /**
      * Internal function to match arguments to a function.
      *
-     * @param callable $callable               The function.
-     * @param array    $arguments              The arguments.
-     * @param boolean  $allowMissingIfOptional Whether to check that arguments that are optional in the function declaration exist in the array.
-     * @param boolean  $allowUnused            Whether to check for extra elements in the array.
+     * @param array|callable $callable               The function.
+     * @param array          $arguments              The arguments.
+     * @param boolean        $allowMissingIfOptional Whether to check that arguments that are optional in the function declaration exist in the array.
+     * @param boolean        $allowUnused            Whether to check for extra elements in the array.
      *
      * @return array Returns a "flat" array for use with call_user_func.
      *
      * @throws \Exception When one of the checks fail.
      */
-    private static function checkArguments(callable $callable, array $arguments, bool $allowMissingIfOptional = false, bool $allowUnused = false) : array
+    private static function checkArguments(/*no type hint to support protected and private*/ $callable, array $arguments, bool $allowMissingIfOptional = false, bool $allowUnused = false) : array
     {
         if (is_array($callable)) {
             $refFunc = new \ReflectionMethod($callable[0], $callable[1]);
