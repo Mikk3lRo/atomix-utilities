@@ -8,11 +8,11 @@
     "packages": [
         {
             "name": "mikk3lro/atomix/converters",
-            "version": "0.0.21",
+            "version": "0.0.22",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:ozcoding/atomix_converters.git",
-                "reference": "07ff2bf4f296937a2fa47ea554a667e8ea6e098e"
+                "reference": "1669f96cc4f2dbb734824888334e11ce55de3df1"
             },
             "archive": {
                 "exclude": [
@@ -44,15 +44,15 @@
                     "email": "mikk3lro@gmail.com"
                 }
             ],
-            "time": "2018-09-22T09:24:21+00:00"
+            "time": "2018-09-22T10:52:41+00:00"
         },
         {
             "name": "mikk3lro/atomix/i18n",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:ozcoding/atomix_i18n.git",
-                "reference": "f073d837d3f192e147fb4a1a833051bb8ce8c58e"
+                "reference": "359e563db788e9de58bdd5feec71f61f0cefcca0"
             },
             "archive": {
                 "exclude": [
@@ -61,7 +61,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^6",
-                "squizlabs/php_codesniffer": "~3.3@dev"
+                "squizlabs/php_codesniffer": "~3.3"
             },
             "type": "library",
             "autoload": {
@@ -81,15 +81,15 @@
                     "email": "mikk3lro@gmail.com"
                 }
             ],
-            "time": "2018-04-11T06:56:17+00:00"
+            "time": "2018-09-22T11:21:57+00:00"
         },
         {
             "name": "mikk3lro/atomix/logger",
-            "version": "0.2.15",
+            "version": "0.2.16",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:ozcoding/atomix_logger.git",
-                "reference": "e8a157ae02f9af9533b11a0bd874f092279e5962"
+                "reference": "8f01299489a729fab51f92beb31cc812474ae64d"
             },
             "archive": {
                 "exclude": [
@@ -123,15 +123,15 @@
                     "email": "mikk3lro@gmail.com"
                 }
             ],
-            "time": "2018-09-22T05:31:51+00:00"
+            "time": "2018-09-22T10:53:27+00:00"
         },
         {
             "name": "mikk3lro/atomix/settings",
-            "version": "0.2.4",
+            "version": "0.2.5",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:ozcoding/atomix_settings.git",
-                "reference": "2c15b9d799713e8826e99b7ec6a7bc6a3a5912c6"
+                "reference": "d40783d43ad6d5b73a63d11725dfd56f3f969df6"
             },
             "archive": {
                 "exclude": [
@@ -140,7 +140,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^6",
-                "squizlabs/php_codesniffer": "~3.3@dev"
+                "squizlabs/php_codesniffer": "~3.3"
             },
             "type": "library",
             "autoload": {
@@ -160,7 +160,7 @@
                     "email": "mikk3lro@gmail.com"
                 }
             ],
-            "time": "2018-04-29T18:39:11+00:00"
+            "time": "2018-09-22T11:26:46+00:00"
         },
         {
             "name": "psr/log",
