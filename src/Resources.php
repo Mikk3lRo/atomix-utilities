@@ -1,29 +1,66 @@
 <?php
 namespace Mikk3lRo\atomix\utilities;
 
-use Mikk3lRo\atomix\system\DirConf;
-use Mikk3lRo\atomix\io\LogTrait;
 use Exception;
 
-class Resources {
-    static function fetchAndCacheResource($url, $name = null, $force_fresh = false) {
-        $resourcesDir = DirConf::get('resources');
+class Resources
+{
+    /**
+     * Fetches a remote file if it does not already exist in the expected local path.
+     *
+     * @param string  $url       The URL of the remote file.
+     * @param string  $localFile The local path to the file.
+     * @param integer $timeout   Maximum time to wait for the download.
+     *
+     * @return string Returns either 'hit' or 'miss' depending if the file was already cached.
+     *
+     * @throws Exception Throws an exception if the download fails or the file is empty.
+     */
+    public static function fetchRemoteResourceOrCache(string $url, string $localFile, int $timeout = 300) : string
+    {
+        if (is_file($localFile) && filesize($localFile) > 0) {
+            return 'hit';
+        }
+        self::fetchRemoteResource($url, $localFile, $timeout);
+        clearstatcache();
+        if (!is_file($localFile) || filesize($localFile) == 0) {
+            throw new Exception(sprintf('Failed to download "%s" to "%s" !?', $url, $localFile)); //@codeCoverageIgnore
+        }
+        return 'miss';
+    }
 
-        if ($name === null) {
-            $name = basename($url);
+
+    /**
+     * Fetches a remote file to a local path, overwriting it if it already exists.
+     *
+     * @param string  $url       The URL of the remote file.
+     * @param string  $localFile The local path to the file.
+     * @param integer $timeout   Maximum time to wait for the download.
+     *
+     * @return void
+     *
+     * @throws Exception Throws an exception if the download fails or the file is empty.
+     */
+    public static function fetchRemoteResource(string $url, string $localFile, int $timeout = 300) : void
+    {
+        $tempfile = tempnam(dirname($localFile), '.tmp');
+
+        $fp = fopen($tempfile, 'w+b');
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_exec($ch);
+        fclose($fp);
+        $curlErrNo = curl_errno($ch);
+        $curlError = curl_error($ch);
+        curl_close($ch);
+        if ($curlErrNo) {
+            unlink($tempfile);
+            throw new Exception(sprintf('Failed to download "%s" to "%s" !?' . "\n" . '%s', $url, $tempfile, $curlError));
         }
-        $local_file = $resourcesDir . '/downloads/' . $name;
-        if ($force_fresh && is_file($local_file)) {
-            unlink($local_file);
+        if (file_exists($localFile)) {
+            unlink($localFile);
         }
-        if (!is_file($local_file) || filesize($local_file) < 1024) {
-            $cmd = "wget -O " . escapeshellarg($local_file) . "  --no-check-certificate --content-disposition " . escapeshellarg($url);
-            passthru($cmd);
-            clearstatcache();
-            if (!is_file($local_file) || filesize($local_file) < 1024) {
-                throw new Exception('Failed to download "' . $name . '" !?');
-            }
-        }
-        return $local_file;
+        rename($tempfile, $localFile);
     }
 }
