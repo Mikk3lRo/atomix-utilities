@@ -110,4 +110,31 @@ final class ReflectionsTest extends TestCase
         $this->assertEquals('Test1', $result[0]);
         $this->assertEquals('not required', $result[1]);
     }
+
+
+    public function testRequireFunctionToAcceptArgs() {
+        $this->expectOutputString('');
+        Reflections::requireFunctionToAcceptArgs(function($a, $b){}, 2);
+    }
+    public function testRequireFunctionToAcceptArgsDisallowExtra() {
+        $this->expectExceptionMessage('accepts too many parameters');
+        Reflections::requireFunctionToAcceptArgs(function($a, $b, $c = 'optional'){}, 2, false);
+    }
+    public function testRequireFunctionToAcceptArgsFailsWhenTooManyAreRequired() {
+        $this->expectExceptionMessage('requires too many parameters');
+        Reflections::requireFunctionToAcceptArgs(function($a, $b, $c){}, 2);
+    }
+    public function testRequireFunctionToAcceptArgsFailsWhenTooFewAreAccepted() {
+        $this->expectExceptionMessage('accepts too few parameters');
+        Reflections::requireFunctionToAcceptArgs(function($a){}, 2);
+    }
+    public function testRequireFunctionArgsWorksWithInstantiatedObject() {
+        $instance = new dummyClass();
+        $this->expectOutputString('');
+        Reflections::requireFunctionToAcceptArgs(array($instance, 'objectFunction'), 2);
+    }
+    public function testRequireFunctionArgsWorksWithStaticClassFunction() {
+        $this->expectOutputString('');
+        Reflections::requireFunctionToAcceptArgs(array(dummyClass::class, 'staticFunction'), 2);
+    }
 }
