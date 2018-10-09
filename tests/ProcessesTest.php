@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Mikk3lRo\atomix\Tests;
+
 use PHPUnit\Framework\TestCase;
 
 use Mikk3lRo\atomix\utilities\Processes;
@@ -8,14 +10,18 @@ use Mikk3lRo\atomix\utilities\Detector;
 
 final class ProcessesTest extends TestCase
 {
-    public function testExecuteNonBlockingRunsAndDoesNotBlock() {
+    public function testExecuteNonBlockingRunsAndDoesNotBlock()
+    {
         $starttime = microtime(true);
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.2;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $executiontime = microtime(true) - $starttime;
         $this->assertLessThan(.2, $executiontime);
     }
-    public function testCanDetermineIfProcessIsRunning() {
+
+
+    public function testCanDetermineIfProcessIsRunning()
+    {
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.2;echo def;date;');
         $this->assertGreaterThan(0, $pid);
         $this->assertEquals(true, Processes::isRunning($pid));
@@ -32,7 +38,10 @@ final class ProcessesTest extends TestCase
             $this->assertEquals(false, Processes::isRunning($pid));
         }
     }
-    public function testExecuteNonBlockingSimpleCommand() {
+
+
+    public function testExecuteNonBlockingSimpleCommand()
+    {
         $starttime = microtime(true);
         $pid = Processes::executeNonBlocking('sleep 0.2');
         $executiontime = microtime(true) - $starttime;
@@ -41,7 +50,9 @@ final class ProcessesTest extends TestCase
         $this->assertEquals(true, Processes::isRunning($pid));
     }
 
-    public function testExecuteNonBlockingDoesOutput() {
+
+    public function testExecuteNonBlockingDoesOutput()
+    {
         $pid = Processes::executeNonBlocking('echo -n abc;echo -n ghi >&2;sleep 0.2;echo -n def;echo -n jkl >&2', '/tmp/stdout', '/tmp/stderr');
         usleep(50000);
         $this->assertRegExp('#^abc$#', file_get_contents('/tmp/stdout'));

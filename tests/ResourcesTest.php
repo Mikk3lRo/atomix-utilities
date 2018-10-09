@@ -1,23 +1,28 @@
 <?php
 declare(strict_types=1);
 
+namespace Mikk3lRo\atomix\Tests;
+
 use PHPUnit\Framework\TestCase;
 
 use Mikk3lRo\atomix\utilities\Resources;
 
 final class ResourcesTest extends TestCase
 {
-    public function testCanGetFile() {
+    public function testCanGetFile()
+    {
         $url = 'http://urlecho.appspot.com/echo?status=200&Content-Type=text%2Fhtml&body=Hello%20world!';
         $file = '/tmp/testfile';
         Resources::fetchRemoteResource($url, $file);
         $this->assertEquals('Hello world!', file_get_contents($file));
     }
 
+
     /**
      * @depends testCanGetFile
      */
-    public function testThrowsOnFail() {
+    public function testThrowsOnFail()
+    {
         $url = 'http://surely.this-server.does.not.exist/whatever';
         $file = '/tmp/testfile';
         $error = false;
@@ -30,10 +35,12 @@ final class ResourcesTest extends TestCase
         $this->assertEquals('Hello world!', file_get_contents($file));
     }
 
+
     /**
      * @depends testCanGetFile
      */
-    public function testWillSkipIfCached() {
+    public function testWillSkipIfCached()
+    {
         $url = 'http://urlecho.appspot.com/echo?status=200&Content-Type=text%2Fhtml&body=Hello%20world! no2';
         $file = '/tmp/testfile';
         clearstatcache();
@@ -46,7 +53,9 @@ final class ResourcesTest extends TestCase
         $this->assertEquals('Hello world!', file_get_contents($file));
     }
 
-    public function testCanGetFileAndCache() {
+
+    public function testCanGetFileAndCache()
+    {
         $url = 'http://urlecho.appspot.com/echo?status=200&Content-Type=text%2Fhtml&body=Hello%20world!';
         $file = '/tmp/testfile';
 
