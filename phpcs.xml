@@ -27,6 +27,9 @@
         </properties>
     </rule>
     
+    <!-- Enforce strict mode -->
+    <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php" />
+    
     <!-- Require comments for functions and variables -->
     <rule ref="Squiz.Commenting.FunctionComment" />
     <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />

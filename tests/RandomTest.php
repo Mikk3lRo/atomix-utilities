@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Mikk3lRo\atomix\Tests;
 
@@ -7,8 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 use Mikk3lRo\atomix\utilities\Random;
 
+/**
+ * @covers Mikk3lRo\atomix\utilities\Random::<!public>
+ */
 final class RandomTest extends TestCase
 {
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::integer
+     */
     public function testCanGetRandomInt()
     {
         $this->assertInternalType('integer', Random::integer(1, 100));
@@ -17,6 +22,9 @@ final class RandomTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::token
+     */
     public function testCanGetToken()
     {
         $this->assertEquals(true, is_string(Random::token()));
@@ -26,6 +34,9 @@ final class RandomTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::password
+     */
     public function testCanGetPassword()
     {
         $this->assertEquals(true, is_string(Random::password()));
@@ -35,6 +46,9 @@ final class RandomTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::token
+     */
     public function testTokenIsRandom()
     {
         $manyTokens = array();
@@ -46,6 +60,9 @@ final class RandomTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::password
+     */
     public function testPasswordIsRandom()
     {
         $manyPasswords = array();
@@ -57,6 +74,9 @@ final class RandomTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::password
+     */
     public function testPasswordsAreValid()
     {
         //Test that 1000 random passwords all has the required character classes, correct length and no unwanted characters.
@@ -85,8 +105,11 @@ final class RandomTest extends TestCase
         //If we reach here, pass
         $this->assertTrue(true);
     }
-    
 
+
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Random::password
+     */
     public function testPasswordIgnoresMinLengthIfTooShortToBeValid()
     {
         $this->assertEquals(3, strlen(Random::password(1)));

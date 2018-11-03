@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Mikk3lRo\atomix\Tests;
 
@@ -9,6 +8,9 @@ use Mikk3lRo\atomix\utilities\Detector;
 
 final class DetectorTest extends TestCase
 {
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Detector::isInsideDocker
+     */
     public function testCanDetermineIfWeAreInDockerContainer()
     {
         $expected = file_exists('/.dockerenv');

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Mikk3lRo\atomix\Tests;
 
@@ -10,6 +9,9 @@ use Mikk3lRo\atomix\utilities\Detector;
 
 final class ProcessesTest extends TestCase
 {
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Processes::executeNonBlocking
+     */
     public function testExecuteNonBlockingRunsAndDoesNotBlock()
     {
         $starttime = microtime(true);
@@ -20,6 +22,9 @@ final class ProcessesTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Processes::isRunning
+     */
     public function testCanDetermineIfProcessIsRunning()
     {
         $pid = Processes::executeNonBlocking('date;echo abc;sleep 0.2;echo def;date;');
@@ -40,6 +45,9 @@ final class ProcessesTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Processes::executeNonBlocking
+     */
     public function testExecuteNonBlockingSimpleCommand()
     {
         $starttime = microtime(true);
@@ -51,6 +59,9 @@ final class ProcessesTest extends TestCase
     }
 
 
+    /**
+     * @covers Mikk3lRo\atomix\utilities\Processes::executeNonBlocking
+     */
     public function testExecuteNonBlockingDoesOutput()
     {
         $pid = Processes::executeNonBlocking('echo -n abc;echo -n ghi >&2;sleep 0.2;echo -n def;echo -n jkl >&2', '/tmp/stdout', '/tmp/stderr');
