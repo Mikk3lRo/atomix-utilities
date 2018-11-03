@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace Mikk3lRo\atomix\utilities;
 
 use Exception;
@@ -118,5 +119,31 @@ class Reflections
             }
         }
         return $arrayForCallUserFunc;
+    }
+
+
+    /**
+     * Ensure a function declares the specified return type.
+     *
+     * @param array|callable $callable The function.
+     * @param string         $type     The required return type.
+     *
+     * @return void
+     *
+     * @throws Exception If the function does not declare the correct return type.
+     */
+    public static function requireFunctionToHaveReturnType(/*no type hint to support protected and private*/ $callable, string $type) : void
+    {
+        if (is_array($callable)) {
+            $refFunc = new \ReflectionMethod($callable[0], $callable[1]);
+        } else {
+            $refFunc = new \ReflectionFunction($callable);
+        }
+
+        if (!$refFunc->hasReturnType()) {
+            throw new Exception('Function must declare return type!');
+        } else if ($refFunc->getReturnType()->getName() !== $type) {
+            throw new Exception(sprintf('Function return type must be %s!', $type));
+        }
     }
 }
