@@ -1,5 +1,5 @@
 <?php
-namespace Mikk3lRo\atomix\Tests;
+namespace Mikk3lRo\Tests;
 
 class DummyClass
 {

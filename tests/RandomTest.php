@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Mikk3lRo\atomix\Tests;
+namespace Mikk3lRo\Tests;
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ final class RandomTest extends TestCase
      */
     public function testCanGetRandomInt()
     {
-        $this->assertInternalType('integer', Random::integer(1, 100));
+        $this->assertIsInt(Random::integer(1, 100));
         $this->assertGreaterThan(0, Random::integer(1, 100));
         $this->assertLessThan(101, Random::integer(1, 100));
     }

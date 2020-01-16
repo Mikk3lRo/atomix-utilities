@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Mikk3lRo\atomix\Tests;
+namespace Mikk3lRo\Tests;
 
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ final class CLITest extends TestCase
      */
     public function testCanGetCompleteCommand()
     {
-        $this->assertRegExp('#/php .*-f#', CLI::getCalledCommand());
+        $this->assertRegExp('#/php.*-f#', CLI::getCalledCommand());
     }
 
 
@@ -31,7 +31,7 @@ final class CLITest extends TestCase
      */
     public function testCanGetOtherScriptCommand()
     {
-        $this->assertRegExp('#/php .*-f ./tmp/test\.php. .with. .these. .parms.$#', CLI::getPhpCommand('/tmp/test.php', array('with', 'these', 'parms')));
+        $this->assertRegExp('#/php.*-f ./tmp/test\.php. .with. .these. .parms.$#', CLI::getPhpCommand('/tmp/test.php', array('with', 'these', 'parms')));
     }
 
 

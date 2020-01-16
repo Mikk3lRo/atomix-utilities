@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace Mikk3lRo\atomix\Tests;
+namespace Mikk3lRo\Tests;
 
-use PHPUnit\Framework\TestCase;
-
+use Exception;
 use Mikk3lRo\atomix\utilities\Resources;
+use PHPUnit\Framework\TestCase;
 
 final class ResourcesTest extends TestCase
 {
@@ -30,10 +30,10 @@ final class ResourcesTest extends TestCase
         $error = false;
         try {
             Resources::fetchRemoteResource($url, $file);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $error = $e->getMessage();
         }
-        $this->assertContains('Could not resolve', $error);
+        $this->assertStringContainsString('Could not resolve', $error);
         $this->assertEquals('Hello world!', file_get_contents($file));
     }
 
@@ -57,7 +57,7 @@ final class ResourcesTest extends TestCase
         $this->assertEquals('Hello world!', file_get_contents($file));
     }
 
-    
+
     /**
      * @covers Mikk3lRo\atomix\utilities\Resources::fetchRemoteResourceOrCache
      * @depends testCanGetFileAndCache
